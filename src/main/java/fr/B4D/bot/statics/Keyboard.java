@@ -55,30 +55,6 @@ public final class Keyboard {
         sendKey(keyEvent, 100);
     }
 
-    public void holdKey(int keyCode) {
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        if (robot == null)
-            return;
-        robot.keyPress(keyCode);
-    }
-
-    public void unholdKey(int keyCode) {
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        if (robot == null)
-            return;
-        robot.keyRelease(keyCode);
-    }
-
     /**
      * Simulates key press on the keyboard.<br><br>
      * This method actually copy the string in the clipboard and paste it where the cursor is.
@@ -152,20 +128,5 @@ public final class Keyboard {
     public int waitForKeyboard(int timeout) {
         //To be implemented using KeyboardListener and keys queue just like Chat and messages works
         return -1;
-    }
-
-    public void toggleHUD() {
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        if (robot == null)
-            return;
-        robot.keyPress(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_RIGHT_PARENTHESIS);
-        robot.keyRelease(KeyEvent.VK_RIGHT_PARENTHESIS);
-        robot.keyRelease(KeyEvent.VK_ALT);
     }
 }

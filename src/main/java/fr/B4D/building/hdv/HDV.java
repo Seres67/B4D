@@ -19,7 +19,6 @@ import fr.B4D.utils.PointF;
  *
  * @author Lucas
  */
-
 public class HDV extends IndoorBuilding {
 
     /**
