@@ -18,10 +18,7 @@ import fr.B4D.dofus.Dofus;
 import fr.B4D.interaction.Status;
 import fr.B4D.interaction.chat.Channel;
 import fr.B4D.interaction.chat.Message;
-import fr.B4D.programs.Breaking;
-import fr.B4D.programs.Loto;
-import fr.B4D.programs.PricesEvolution;
-import fr.B4D.programs.Spam;
+import fr.B4D.programs.*;
 import fr.B4D.programs.tutorials.BankAPITutorial1;
 import fr.B4D.programs.tutorials.BankAPITutorial2;
 import fr.B4D.programs.tutorials.ConverterAPITutorial;
@@ -85,6 +82,7 @@ public final static ArrayList<Program> getAll(){
   	programs.add(new Breaking());
   	programs.add(new PricesEvolution());
   	programs.add(new Spam());
+  	programs.add(new AlmanaxDuJour());
 
 	/** TUTORIALS **/
   	

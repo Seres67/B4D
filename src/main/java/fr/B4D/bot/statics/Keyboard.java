@@ -57,6 +57,14 @@ public final class Keyboard{
 	public void sendKey(int keyEvent) throws StopProgramException, CancelProgramException {
 		sendKey(keyEvent, 100);
 	}
+
+	public void holdKey(int keyCode) {
+		robot.keyPress(keyCode);
+	}
+
+	public void unholdKey(int keyCode) {
+		robot.keyRelease(keyCode);
+	}
 	
 	  /********************/
 	 /** WRITE KEYBOARD **/
@@ -123,5 +131,12 @@ public final class Keyboard{
 	public int waitForKeyboard(int timeOut) {
 		//To be implemented using KeyboardListener and keys queue just like Chat and messages works
 		return -1;
+	}
+
+	public void toggleHUD() {
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_RIGHT_PARENTHESIS);
+		robot.keyRelease(KeyEvent.VK_RIGHT_PARENTHESIS);
+		robot.keyRelease(KeyEvent.VK_ALT);
 	}
 }

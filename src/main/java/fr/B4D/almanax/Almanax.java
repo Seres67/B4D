@@ -1,5 +1,6 @@
 package fr.B4D.almanax;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,11 @@ public class Almanax {
 	  /***************/
 	 /** CONSTANTS **/
 	/***************/
+
+	/**
+	 * Almanax location.
+	 **/
+	public static final Point location = new Point(-4, -24);
 	
 	/**
 	 * French language.
@@ -212,7 +218,7 @@ public class Almanax {
 				
 			int amount = Integer.parseInt(matcher.group(1));
 			String name = matcher.group(2);
-			
+
 			List<Item> items = database.findItemsByName(name);
 			
 			if(items.size() == 0)
