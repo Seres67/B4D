@@ -1,4 +1,4 @@
-package fr.B4D.socket.result;
+package fr.B4D.socket.event;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import fr.B4D.dofus.items.Item;
  * @author Lucas
  *
  */
-public class HDVFilterResultEvent extends SocketEvent{
+public class HDVFilterResultEvent extends DofusEvent{
 	
 	/**
 	 * List of items in the result.

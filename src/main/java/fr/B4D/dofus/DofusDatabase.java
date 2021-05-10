@@ -1,6 +1,5 @@
 package fr.B4D.dofus;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,10 +37,6 @@ import fr.B4D.dofus.items.Weapon;
  *
  */
 public class DofusDatabase {
-
-	  /***************/
-	 /** CONSTANTS **/
-	/***************/
 	
 	private final static String ITEM_REGEX = "https://www.dofus.com/(fr|en|de|es|it|pt)/mmorpg/(encyclopedie|encyclopedia|leitfaden|enciclopedia)/%s/([0-9]+)-([a-z-]+)";
 	
@@ -57,39 +52,16 @@ public class DofusDatabase {
 	private final static String SIDEKICK_REGEX = String.format(ITEM_REGEX,"(compagnons|sidekicks|begleiter|companeros|compagni|companheiros)");
 	private final static String IDOL_REGEX = String.format(ITEM_REGEX,"(idoles|idols|idole|idolos|idoli)");
 	private final static String HARNESS_REGEX = String.format(ITEM_REGEX,"(harnachements|harnesses|zaumzeug|arreos|bardature|arreios)");
-
-	  /***************/
-	 /** ATTRIBUTS **/
-	/***************/
 	
 	private String databaseFile;
-	private boolean isResource;
-	
-	  /*************/
-	 /** BUILDER **/
-	/*************/
-	
-	/**
-	 * Constructs a {@code DofusDatabase} from an external database file.
-	 * @param databaseFile - Database file in json format.
-	 */
-	public DofusDatabase(String databaseFile) {
-		this(databaseFile, false);
-	}
 
 	/**
-	 * Constructs a {@code DofusDatabase} from an external database file.
-	 * @param databaseFile - Database file in json format.
-	 * @param isResource - {@code true} if the file is an internal resource, {@code false} otherwise.
+	 * Constructs a {@code DofusDatabase} from a database file.
+	 * @param databaseFile - Database file in json format.s
 	 */
-	public DofusDatabase(String databaseFile, boolean isResource) {
+	public DofusDatabase(String databaseFile) {
 		this.databaseFile = databaseFile;
-		this.isResource = isResource;
 	}
-	
-	  /*************/
-	 /** STATICS **/
-	/*************/
 	
 	private static boolean matches(String REGEX, String url) {
 		Pattern pattern = Pattern.compile(REGEX);
@@ -217,12 +189,7 @@ public class DofusDatabase {
 	public JSONObject loadDatabase() throws B4DException {
 		try {
 			JSONParser jsonParser = new JSONParser();
-			InputStream is;
-			if(isResource)
-				is = DofusDatabase.class.getResourceAsStream(databaseFile);
-			else
-				is = new FileInputStream(databaseFile);
-			
+			InputStream is = DofusDatabase.class.getResourceAsStream(databaseFile);			
 			InputStreamReader isr = new InputStreamReader(is);
 			JSONObject database = (JSONObject) jsonParser.parse(isr);
 			isr.close();

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -30,13 +31,14 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumn;
 
 import fr.B4D.bot.B4D;
-import fr.B4D.bot.B4DException;
 import fr.B4D.bot.Person;
-import fr.B4D.bot.Server;
+import fr.B4D.dofus.server.Server;
+import fr.B4D.dofus.server.ServerEnum;
 import fr.B4D.transport.transports.Zaap;
 
 /**
  * The class {@code JPanel_Personnage} is a GUI allowing persons configurations.
+ * 
  * @author Lucas
  *
  */
@@ -84,12 +86,13 @@ public class JPanel_Personnage extends JPanel {
 		
 		JComboBox<Server> comboBox_server = new JComboBox<Server>();
 		
-		for(Server server:Server.values())
-			comboBox_server.addItem(server);
+		for(ServerEnum server:ServerEnum.values())
+			comboBox_server.addItem(server.getValue());
 		
 		dataTable = new Vector<Vector<String>>();
 		Vector<String> colonnes = new Vector<String>(Arrays.asList(new String[] {"Nom de compte","Mot de passe","Serveur","Pseudo"}));
 		table = new JTable(dataTable, colonnes);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableColumn serverColumn = table.getColumnModel().getColumn(2);
 		serverColumn.setCellEditor(new DefaultCellEditor(comboBox_server));
 		table.getModel().addTableModelListener(new TableModelListener(){
@@ -416,61 +419,64 @@ public class JPanel_Personnage extends JPanel {
 		
 		ActualiserInfos();
 	}
-
-	  /**************/
-	 /** METHODES **/
-	/**************/
 	
+	/**
+	 * Refresh the informations displayed on the panel.
+	 */
 	public void ActualiserInfos() {
 		
 		this.dataTable.removeAllElements();
 		
-		for(Person personnage:b4d.getTeam()) {
+		for(Person person:b4d.getTeam()) {
 			Vector<String> row = new Vector<String>();
-			row.add(personnage.getAccount());
-			row.add(personnage.getPassword().replaceAll("(?s).", "*"));
-			row.add(personnage.getServer().getName());
-			row.add(personnage.getPseudo());
+			row.add(person.getAccount());
+			row.add(person.getPassword().replaceAll("(?s).", "*"));
+			row.add(person.getServer().getName());
+			row.add(person.getPseudo());
 			dataTable.add(row);
 		}
 
 		table.revalidate();
 		table.repaint();
 	}
-	private void ActualiserInfos(Person personnage) {
+	
+	
+	/**
+	 * Refresh the informations displayed for a given person.
+	 * @param person - Person's informations to refresh.
+	 */
+	private void ActualiserInfos(Person person) {
 		
-		if(personnage.getBoosterPotion().getTransport().getPositionF() != null)
-			this.lblXY_Rappel.setText(personnage.getBoosterPotion().getTransport().getPositionF().getX() + ":" + personnage.getBoosterPotion().getTransport().getPositionF().getY());
+		if(person.getBoosterPotion().getTransport().getPositionF() != null)
+			this.lblXY_Rappel.setText(person.getBoosterPotion().getTransport().getPositionF().getX() + ":" + person.getBoosterPotion().getTransport().getPositionF().getY());
 		else
 			this.lblXY_Rappel.setText("X:Y");
 		
-		if(personnage.getBontaPotion().getTransport().getPositionF() != null)
-			this.lblXY_Bonta.setText(personnage.getBontaPotion().getTransport().getPositionF().getX() + ":" + personnage.getBontaPotion().getTransport().getPositionF().getY());
+		if(person.getBontaPotion().getTransport().getPositionF() != null)
+			this.lblXY_Bonta.setText(person.getBontaPotion().getTransport().getPositionF().getX() + ":" + person.getBontaPotion().getTransport().getPositionF().getY());
 		else
 			this.lblXY_Bonta.setText("X:Y");
 
-		if(personnage.getBrakmarPotion().getTransport().getPositionF() != null)
-			this.lblXY_Brakmar.setText(personnage.getBrakmarPotion().getTransport().getPositionF().getX() + ":" + personnage.getBrakmarPotion().getTransport().getPositionF().getY());
+		if(person.getBrakmarPotion().getTransport().getPositionF() != null)
+			this.lblXY_Brakmar.setText(person.getBrakmarPotion().getTransport().getPositionF().getX() + ":" + person.getBrakmarPotion().getTransport().getPositionF().getY());
 		else
 			this.lblXY_Brakmar.setText("X:Y");
 
-		if(personnage.getSpellPosition() != null)
-			this.lblXY_Sort.setText(personnage.getSpellPosition().getX() + ":" + personnage.getSpellPosition().getY());
+		if(person.getSpellPosition() != null)
+			this.lblXY_Sort.setText(person.getSpellPosition().getX() + ":" + person.getSpellPosition().getY());
 		else
 			this.lblXY_Sort.setText("X:Y");
 
-		if(personnage.getBoosterPotion().getDestination() != null)
-			try {
-				this.comboBox_Zaaps.setSelectedItem(Zaap.getZaap(personnage.getBoosterPotion().getDestination()).getName());
-			} catch (B4DException e) {}
+		if(person.getBoosterPotion().getDestination() != null)
+			this.comboBox_Zaaps.setSelectedItem(Zaap.getZaap(person.getBoosterPotion().getDestination()).getName());
 		
-		if(personnage.getBontaPotion().getDestination() != null)
-			this.lblPosition_Bonta.setText(personnage.getBontaPotion().getDestination().getX() + ":" + personnage.getBontaPotion().getDestination().getY());
+		if(person.getBontaPotion().getDestination() != null)
+			this.lblPosition_Bonta.setText(person.getBontaPotion().getDestination().getX() + ":" + person.getBontaPotion().getDestination().getY());
 		else
 			this.lblPosition_Bonta.setText("X:Y");
 		
-		if(personnage.getBrakmarPotion().getDestination() != null)
-			this.lblPosition_Brakmar.setText(personnage.getBrakmarPotion().getDestination().getX() + ":" + personnage.getBrakmarPotion().getDestination().getY());
+		if(person.getBrakmarPotion().getDestination() != null)
+			this.lblPosition_Brakmar.setText(person.getBrakmarPotion().getDestination().getX() + ":" + person.getBrakmarPotion().getDestination().getY());
 		else
 			this.lblPosition_Brakmar.setText("X:Y");
 	}

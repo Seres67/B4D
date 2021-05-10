@@ -1,20 +1,21 @@
-package fr.B4D.socket.result;
+package fr.B4D.socket.event;
 
 import java.time.LocalDateTime;
 
 /**
  * The {@code SocketResult} class represents the result of a socket. This is an abstract class.
+ * 
  * @author Lucas
  *
  */
-public class SocketEvent {
+public abstract class DofusEvent {
 
 	private LocalDateTime dateTime;
 	
 	/**
 	 * Constructor of the socket result class.
 	 */
-	public SocketEvent() {
+	public DofusEvent() {
 		super();
 		dateTime = LocalDateTime.now();
 	}

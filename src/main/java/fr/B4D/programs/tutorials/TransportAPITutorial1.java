@@ -12,14 +12,16 @@ import fr.B4D.program.StopProgramException;
 
 /**
  * The {@code TransportAPI} class contains all the tutorials relative to the transport API.
- * 
- * Ce tutoriel à pour objectif de mieux comprendre le fonctionnement et l'utilisation de l'API des transports.<br>
- *  <br>
- *  Fonctionnement :
- *  <ul>
- *  	<li>Se rend en (4, -18).</li>
- *  	<li>Se rend en (3, -19).</li>
- *  </ul>
+ * <br><br>
+ * This tutorial focus on simple moves.
+ * <br><br>
+ * Steps :
+ * <ul>
+ *     <li>Goes to (3, -19).</li>
+ *     <li>Goes to (3, -20).</li>
+ *     <li>Goes to (3, -19).</li>
+ *     <li>Goes to the player's registered zaap</li>
+ * </ul>
  *
  * @author Lucas
  *
@@ -41,7 +43,9 @@ public final class TransportAPITutorial1 extends Program {
 
 	@Override
 	public void cycle(Person person) throws StopProgramException, CancelProgramException, B4DException {
-		person.goTo(new Point(4, -18));
 		person.goTo(new Point(3, -19));
+		person.goTo(new Point(3, -20));
+		person.goTo(new Point(3, -19));
+		person.goTo(person.getBoosterPotion().getDestination());
 	}
 }

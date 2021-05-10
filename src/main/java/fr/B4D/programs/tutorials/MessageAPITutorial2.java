@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import fr.B4D.bot.B4D;
+import fr.B4D.bot.B4DException;
 import fr.B4D.bot.Person;
 import fr.B4D.interaction.Status;
 import fr.B4D.interaction.chat.Channel;
@@ -16,17 +17,19 @@ import fr.B4D.program.StopProgramException;
 
 /**
  * The {@code MessageAPI} class contains all the tutorials relative to the message API.
- * Ce tutoriel à pour objectif de mieux comprendre le fonctionnement et l'utilisation de l'API des échanges entre joueurs.<br>
- *  <br>
- *  Fonctionnement :
- *  <ul>
- *  	<li>Envoi d'un message privé à "Solwy".</li>
- *  	<li>Envoi du message.</li>
- *  	<li>Attente de la réponse du joueur.</li>
- *  	<li>Répond "ça va ?" si le joueur à répondu. Affiche un message si il n'a pas répondu après 1 min = 60000 ms.</li>
+ * <br><br>
+ * This tutorial focus on message reception.
+ * If you want to read messages, see {@link MessageAPITutorial1}.
+ * If you want to use chat filters and a chat listener, see {@link MessageAPITutorial3}.
+ * <br><br>
+ * Steps :
+ * <ul>
+ *     <li>Ask for a player to which send a private message</li>
+ *     <li>Send a private message</li>
+ *     <li>Wait for the answer</li>
+ *     <li>Answer "ça va ?" if the player has answer. Displays a popup message if he hasn't answer after 60 secondes</li>
  *  </ul>
- *  Dans le cas où l'échange est annulé par le joueur, un exception est levée. Un message différent est alors affiché.<br>
- *
+ *  
  * @author Lucas
  *
  */
@@ -46,7 +49,7 @@ public final class MessageAPITutorial2 extends Program {
 	public void outro(Person person) {}
 
 	@Override
-	public void cycle(Person person) throws StopProgramException, CancelProgramException {
+	public void cycle(Person person) throws StopProgramException, CancelProgramException, B4DException {
 		JTextField nameField = new JTextField();
 		Object[] field = {
 				"Destinataire :", nameField,

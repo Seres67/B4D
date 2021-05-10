@@ -1,4 +1,4 @@
-package fr.B4D.socket.result;
+package fr.B4D.socket.event;
 
 /**
  * A {@code PlayerEnterMapEvent} occurs when an other player enter the current map.
@@ -6,7 +6,7 @@ package fr.B4D.socket.result;
  * @author Lucas
  *
  */
-public class PlayerEnterMapEvent extends SocketEvent{
+public class PlayerEnterMapEvent extends DofusEvent{
 	
 	/**
 	 * Pseudo of the player entering the map.

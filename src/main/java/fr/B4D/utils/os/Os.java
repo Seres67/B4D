@@ -13,6 +13,7 @@ import fr.B4D.program.CancelProgramException;
  * The {@code Os} class gives access to useful methods relative to the Operating System.
  * 
  * @author Lucas
+ * 
  */
 public abstract class Os {
 	
@@ -63,6 +64,14 @@ public abstract class Os {
         }
         return lines;
 	}
+	
+
+    /**
+     * Gives the focus to an external application.
+     * @param title - Title of the application to give the focus.
+     * @return {@code true} if the focus as been set, {@code false} if the window couldn't be found.
+     */
+    public abstract boolean setFocus(String title);
 	
 	/**
 	 * Finds the Dofus server ip.

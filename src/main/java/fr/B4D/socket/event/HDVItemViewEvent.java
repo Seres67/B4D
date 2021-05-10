@@ -1,4 +1,4 @@
-package fr.B4D.socket.result;
+package fr.B4D.socket.event;
 
 /**
  * The {@code HDVItemViewSocketResult} class represents the result of an {@code HDVItemViewSocketParser}. This class extends {@code SocketResult}.
@@ -6,7 +6,7 @@ package fr.B4D.socket.result;
  * @author Lucas
  *
  */
-public class HDVItemViewEvent extends SocketEvent{
+public class HDVItemViewEvent extends DofusEvent{
 
 	/**
 	 * The item id.

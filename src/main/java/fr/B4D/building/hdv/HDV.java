@@ -6,9 +6,7 @@ import java.util.List;
 import fr.B4D.bot.B4D;
 import fr.B4D.bot.B4DException;
 import fr.B4D.bot.Person;
-import fr.B4D.bot.statics.Converter;
 import fr.B4D.building.IndoorBuilding;
-import fr.B4D.dao.DAOFactory;
 import fr.B4D.dofus.items.Item;
 import fr.B4D.program.CancelProgramException;
 import fr.B4D.program.StopProgramException;
@@ -18,7 +16,10 @@ import fr.B4D.utils.PointF;
  * The class {@code HDV} represents an HDV on the map.<br><br>
  * This class extends {@code IndoorBuilding}.
  * An HDV has a characterPosition position.
+ *
+ * @author Lucas
  */
+
 public class HDV extends IndoorBuilding {
 
     /**
@@ -41,10 +42,6 @@ public class HDV extends IndoorBuilding {
      */
     private PointF tablePosition;
 
-    /*************/
-    /** BUILDER **/
-    /*************/
-
     /**
      * Builder of the {@code HDV} class.
      *
@@ -63,10 +60,6 @@ public class HDV extends IndoorBuilding {
         this.opened = Boolean.FALSE;
         this.buyMode = true;
     }
-
-    /***************/
-    /** GET & SET **/
-    /***************/
 
     /**
      * Returns the position of the table on the screen.
@@ -108,7 +101,7 @@ public class HDV extends IndoorBuilding {
         super.enter(person);
 
         if (!opened) {
-            B4D.mouse.leftClick(tablePosition, false, 5000);
+            B4D.mouse.leftClick(tablePosition, false, 10000);
             //Wait for the HDV socket to be received
             opened = Boolean.TRUE;
         }
@@ -135,8 +128,9 @@ public class HDV extends IndoorBuilding {
      *
      * @throws StopProgramException   If the program has been stopped.
      * @throws CancelProgramException If the program has been canceled.
+     * @throws B4DException           if an unexpected error occurred.
      */
-    public void setBuyMode() throws StopProgramException, CancelProgramException {
+    public void setBuyMode() throws StopProgramException, CancelProgramException, B4DException {
         B4D.mouse.leftClick(new PointF(0.2856, 0.1058), false);
         buyMode = Boolean.TRUE;
     }
@@ -146,8 +140,9 @@ public class HDV extends IndoorBuilding {
      *
      * @throws StopProgramException   If the program has been stopped.
      * @throws CancelProgramException If the program has been canceled.
+     * @throws B4DException           if an unexpected error occurred.
      */
-    public void setSaleMode() throws StopProgramException, CancelProgramException {
+    public void setSaleMode() throws StopProgramException, CancelProgramException, B4DException {
         B4D.mouse.leftClick(new PointF(0.436, 0.1038), false);
         buyMode = Boolean.FALSE;
     }
@@ -159,8 +154,9 @@ public class HDV extends IndoorBuilding {
      * @return - Found items.
      * @throws CancelProgramException if the program is canceled.
      * @throws StopProgramException   if the program is stopped.
+     * @throws B4DException           if an unexpected error occurred.
      */
-    public List<Item> research(String name) throws StopProgramException, CancelProgramException {
+    public List<Item> research(String name) throws StopProgramException, CancelProgramException, B4DException {
         B4D.mouse.leftClick(new PointF(0.1924, 0.1732), false);        //Clear the field
         B4D.mouse.leftClick(new PointF(0.127, 0.1752), false);        //Click on the field
         B4D.keyboard.writeKeyboard(name);                            //Type the name
@@ -168,7 +164,7 @@ public class HDV extends IndoorBuilding {
         return null;
     }
 
-    public Item buyFirst() throws StopProgramException, CancelProgramException {
+    public Item buyFirst() throws B4DException {
         //695 221 clic sur l'objet
         //1136 265 clic sur acheter 1
         //868 661 confirmer achat
@@ -178,7 +174,7 @@ public class HDV extends IndoorBuilding {
         return null;
     }
 
-    public Item buyFirstQuantity(int quantity) throws StopProgramException, CancelProgramException {
+    public Item buyFirstQuantity(int quantity) throws B4DException {
         B4D.mouse.leftClick(new Point(695, 221), false, 1000);
         for (int i = 0; i < quantity - 1; ++i) {
             B4D.mouse.leftClick(new Point(1136, 265), false, 1000);

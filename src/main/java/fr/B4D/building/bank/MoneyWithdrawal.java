@@ -1,6 +1,7 @@
 package fr.B4D.building.bank;
 
 import fr.B4D.bot.B4D;
+import fr.B4D.bot.B4DException;
 import fr.B4D.program.CancelProgramException;
 import fr.B4D.program.StopProgramException;
 import fr.B4D.utils.PointF;
@@ -9,6 +10,9 @@ import fr.B4D.utils.PointF;
  * The class {@code MoneyWithdrawal} represents a money withdrawal action on a bank.<br><br>
  * This class extends {@code BankAction}.
  * A money withdrawal has an amount.
+ * 
+ * @author Lucas
+ *
  */
 public class MoneyWithdrawal extends BankAction{
 
@@ -41,7 +45,7 @@ public class MoneyWithdrawal extends BankAction{
 	}
 	
 	@Override
-	public void doAction() throws StopProgramException, CancelProgramException {
+	public void doAction() throws StopProgramException, CancelProgramException, B4DException {
 		if(amount > 0 || amount == -1) {
 			B4D.mouse.leftClick(new PointF(0.2456, 0.8214), false);
 			if(amount > 0)

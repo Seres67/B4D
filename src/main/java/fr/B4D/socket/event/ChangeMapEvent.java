@@ -1,4 +1,4 @@
-package fr.B4D.socket.result;
+package fr.B4D.socket.event;
 
 /**
  * A {@code ChangeMapEvent} occurs when the player moves from a map to another.
@@ -6,7 +6,7 @@ package fr.B4D.socket.result;
  * @author Lucas
  *
  */
-public class ChangeMapEvent extends SocketEvent{
+public class ChangeMapEvent extends DofusEvent{
 	
 	/**
 	 * Constructs a {@code ChangeMapEvent}.

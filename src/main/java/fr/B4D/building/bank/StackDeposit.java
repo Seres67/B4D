@@ -3,6 +3,7 @@ package fr.B4D.building.bank;
 import java.awt.event.KeyEvent;
 
 import fr.B4D.bot.B4D;
+import fr.B4D.bot.B4DException;
 import fr.B4D.dofus.items.Stack;
 import fr.B4D.program.CancelProgramException;
 import fr.B4D.program.StopProgramException;
@@ -12,6 +13,9 @@ import fr.B4D.utils.PointF;
  * The class {@code StackDeposit} represents a stack deposit action on a bank.<br><br>
  * This class extends {@code BankAction}.
  * A stack deposit has an stack.
+ * 
+ * @author Lucas
+ *
  */
 public class StackDeposit extends BankAction{
 
@@ -40,7 +44,7 @@ public class StackDeposit extends BankAction{
 	}
 
 	@Override
-	public void doAction() throws StopProgramException, CancelProgramException {
+	public void doAction() throws StopProgramException, CancelProgramException, B4DException {
 		if(stack != null) {															//If not all the items
 			if(stack.getAmount() > 0 || stack.getAmount() == -1) {						//If something to transfer
 				B4D.mouse.leftClick(new PointF(0.976, 0.7904), false);						//Clear research field

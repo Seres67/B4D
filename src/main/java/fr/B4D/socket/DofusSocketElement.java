@@ -9,10 +9,11 @@ import fr.B4D.bot.B4DException;
 
 /**
  * The {@code SocketElement} class represent an element in a socket.
+ * 
  * @author Lucas
  *
  */
-public class SocketElement {
+public class DofusSocketElement {
 
 	/**
 	 * Socket encoding.
@@ -25,7 +26,7 @@ public class SocketElement {
 	 * Constructor of the {@code SocketElement} class.
 	 * @param payload - Payload of the element as byte array.
 	 */
-	public SocketElement(byte[] payload) {
+	public DofusSocketElement(byte[] payload) {
 		if(payload == null)
 			throw new IllegalArgumentException("Cannot be null.");
 		if(payload.length == 0)
@@ -92,7 +93,7 @@ public class SocketElement {
 			end++;
 			
 			if(Byte.toUnsignedInt(b) < 128) {
-				values.add(new SocketElement(Arrays.copyOfRange(payload, begin, end)).asBigEndian());
+				values.add(new DofusSocketElement(Arrays.copyOfRange(payload, begin, end)).asBigEndian());
 				begin = end;
 			}
 		}

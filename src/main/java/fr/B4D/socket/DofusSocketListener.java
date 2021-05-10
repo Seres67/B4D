@@ -11,25 +11,41 @@ import org.pcap4j.packet.Packet;
 
 import fr.B4D.bot.B4D;
 import fr.B4D.bot.B4DException;
+import fr.B4D.socket.event.DofusEvent;
 import fr.B4D.socket.parser.SocketParser;
+import fr.B4D.socket.store.EventStore;
 
-/** La classe {@code SocketListener} permet d'écouter de sniffer et traiter les trames dofus.<br><br>
- * Cette classe étend la classe {@code Thread}.
+/**
+ * The {@code SocketListener} class is used to listen the incoming dofus sockets, parse it and process it.
+ * 
+ * @author Lucas
+ *
  */
-public class SocketListener extends Thread{
+public class DofusSocketListener extends Thread{
 	
+	/**
+	 * Read infinite number of sockets
+	 */
 	private static final int INFINITE = -1;
 	
+	/**
+	 * Packet handler.
+	 */
 	private PcapHandle handle;
+	
+	/**
+	 * Listener defining what to do when a packet is received.
+	 */
 	private PacketListener packetListener;
 	
-	/** Constructeur de la classe {@code SocketListener}.
-	 * @throws B4DException Si il est impossible d'ouvrir le réseau.
+	/**
+	 * Constructor of the {@code SocketListener} class.
+	 * @throws B4DException if cannot open the network.
 	 */
-	public SocketListener() throws B4DException{
+	public DofusSocketListener() throws B4DException{
 		
 		try {
-			PcapNetworkInterface nif = PcapsFinder.findActiveDevice();
+			PcapNetworkInterface nif = DofusSocketUtils.findActiveDevice();
 			B4D.logger.debug("Device found : " + nif.getName());
 			handle = nif.openLive(65536, PromiscuousMode.PROMISCUOUS, -1);
 			
@@ -94,20 +110,17 @@ public class SocketListener extends Thread{
 		}
 	}
 	
-	  /*************/
-	 /** PARSING **/
-	/*************/
-	
-	/** Parse les trâmes entrantes.
-	 * @param data - Trâmes entrante.
+	/**
+	 * Parse the incoming dofus packets.
+	 * @param data - Dofus packet as array of byte.
 	 */
 	private void parseDofus(byte[] data) {	
-		
 		try {
-			DofusSocket dofusSocket = new DofusSocket(data);
-			SocketParser<?> socketParser = dofusSocket.getParser();
-			if(socketParser != null) {
-				socketParser.parse(dofusSocket);
+			DofusSocket dofusSocket = new DofusSocket(data);						//Builds a dofus socket out of bytes
+			SocketParser<DofusEvent> socketParser = dofusSocket.getParser();		//Get the parser corresponding to this packet type
+			if(socketParser != null) {												//If a parser exists
+				DofusEvent socketEvent = socketParser.parse(dofusSocket);				//Parse the socket
+				EventStore.getInstance().addSocketEvent(socketEvent);					//Add the event in the store
 			}
 		}catch(B4DException | IllegalArgumentException e) {
 			//Nothing to do.

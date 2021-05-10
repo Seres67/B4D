@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.B4D.bot.B4D;
+import fr.B4D.bot.B4DException;
 import fr.B4D.dofus.items.Item;
 import fr.B4D.program.CancelProgramException;
 import fr.B4D.program.StopProgramException;
-import fr.B4D.socket.result.HDVFilterResultEvent;
-import fr.B4D.socket.store.HDVResearchSocketStore;
+import fr.B4D.socket.event.HDVFilterResultEvent;
+import fr.B4D.socket.store.EventStore;
 import fr.B4D.utils.PointF;
 
 /**
@@ -48,21 +49,22 @@ public class HDVEquipments extends HDV{
 	 * @return List of items matching the filter.
 	 * @throws StopProgramException If the program has been stopped.
 	 * @throws CancelProgramException If the program has been canceled.
+	 * @throws B4DException if an unexpected error occurred.
 	 */
-	public List<Item> enableCategoryFilter(HDVEquipmentCategoryFilter categoryFilter) throws StopProgramException, CancelProgramException{
+	public List<Item> enableCategoryFilter(HDVEquipmentCategoryFilter categoryFilter) throws StopProgramException, CancelProgramException, B4DException{
 		List<Item> items = new ArrayList<Item>();
 		
 		if(!activeCategoryFilters.contains(categoryFilter)) {
 			activeCategoryFilters.add(categoryFilter);
 			B4D.mouse.leftClick(categoryFilter.getFilterPosition(), false);
 
-			HDVFilterResultEvent result = HDVResearchSocketStore.getInstance().waitForResult(5000);
+			HDVFilterResultEvent result = EventStore.getInstance().waitForEvent(HDVFilterResultEvent.class, 5000);
 			
 			if(result != null) {
 				items.addAll(result.getItems());
 				
 				do {
-					result = HDVResearchSocketStore.getInstance().waitForResult(500);
+					result = EventStore.getInstance().waitForEvent(HDVFilterResultEvent.class, 500);
 					if(result != null)
 						items.addAll(result.getItems());
 				}while(result != null);
@@ -77,8 +79,9 @@ public class HDVEquipments extends HDV{
 	 * @param categoryFilter - Category filter to disable.
 	 * @throws StopProgramException If the program has been stopped.
 	 * @throws CancelProgramException If the program has been canceled.
+	 * @throws B4DException if an unexpected error occurred.
 	 */
-	public void disableCategoryFilter(HDVEquipmentCategoryFilter categoryFilter) throws StopProgramException, CancelProgramException {
+	public void disableCategoryFilter(HDVEquipmentCategoryFilter categoryFilter) throws StopProgramException, CancelProgramException, B4DException{
 		if(activeCategoryFilters.contains(categoryFilter)) {
 			B4D.mouse.leftClick(categoryFilter.getFilterPosition(), false);
 		}

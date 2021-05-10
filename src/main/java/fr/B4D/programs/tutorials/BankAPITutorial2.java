@@ -11,6 +11,7 @@ import fr.B4D.bot.Person;
 import fr.B4D.building.bank.Bank;
 import fr.B4D.building.bank.BankAction;
 import fr.B4D.building.bank.StackDeposit;
+import fr.B4D.building.bank.StackWithdrawal;
 import fr.B4D.dofus.Dofus;
 import fr.B4D.dofus.items.Item;
 import fr.B4D.dofus.items.Stack;
@@ -20,17 +21,21 @@ import fr.B4D.program.Place;
 import fr.B4D.program.Program;
 
 /**
- * The {@code BankAPI} class contains all the tutorials relative to the bank API.
- * 
- * Ce tutoriel à pour objectif de mieux comprendre le fonctionnement et l'utilisation de l'API des banques.<br>
- *  <br>
- *  Fonctionnement :
- *  <ul>
- *  	<li>Demande un item à déposer</li>
- *  	<li>Dépose 1 item</li>
- *  	<li>Dépose tous le stack d'item</li>
- *  	<li>Dépose tous les items</li>
- *  </ul>
+ * The {@code BankAPITutorial2} program is a tutorial to better understand the Bank API.
+ * <br><br>
+ * This tutorial focus on item deposits and withdrawals.
+ * If you want to perform money deposits and withdrawals, see {@link BankAPITutorial1}.
+ * <br><br>
+ * Steps :
+ * <ul>
+ *     <li>Requests an object to deposit</li>
+ *     <li>Deposit one item</li>
+ *     <li>Deposit the item stack</li>
+ *     <li>Deposit all the items</li>
+ *     <li>Withdraw one item</li>
+ *     <li>Withdraw the item stack</li>
+ *     <li>Withdraw all the items</li>
+ * </ul>
  *
  * @author Lucas
  *
@@ -73,6 +78,9 @@ public final class BankAPITutorial2 extends Program{
 		bankAction.add(new StackDeposit(new Stack(item, 1)));
 		bankAction.add(new StackDeposit(new Stack(item, -1)));
 		bankAction.add(StackDeposit.ALL);
+		bankAction.add(new StackWithdrawal(new Stack(item, 1)));
+		bankAction.add(new StackWithdrawal(new Stack(item, -1)));
+		bankAction.add(StackWithdrawal.ALL);
 
 		Bank.ASTRUB.doActions(person, bankAction);
 	}
