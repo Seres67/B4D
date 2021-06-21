@@ -129,4 +129,28 @@ public final class Keyboard {
         //To be implemented using KeyboardListener and keys queue just like Chat and messages works
         return -1;
     }
+
+    public void holdKey(int keyCode) {
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        if (robot == null)
+            return;
+        robot.keyPress(keyCode);
+    }
+
+    public void unholdKey(int keyCode) {
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        if (robot == null)
+            return;
+        robot.keyRelease(keyCode);
+    }
 }

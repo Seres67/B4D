@@ -1,5 +1,6 @@
 package fr.B4D.almanax;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +26,8 @@ import fr.B4D.dofus.items.Stack;
  * @author Lucas
  */
 public class Almanax {
+
+    public static Point location = new Point(-4, -24);
 
     /**
      * French language.
@@ -107,8 +110,8 @@ public class Almanax {
      * @param language - The language you want to use.<br><br>
      *                 To construct a french alamanax object use:
      *                 <blockquote><pre>
-     *                                 Almanax almanax = new Almanax(Almanax.FRENCH_LANGUAGE);
-     *                                 </pre></blockquote>
+     *                                                                                 Almanax almanax = new Almanax(Almanax.FRENCH_LANGUAGE);
+     *                                                                                 </pre></blockquote>
      * @throws B4DException
      */
     public Almanax(String language) throws B4DException {
@@ -122,8 +125,8 @@ public class Almanax {
      * @param database - The dofus database from which retrieve the items.<br><br>
      *                 To construct a french alamanax object use:
      *                 <blockquote><pre>
-     *                                 Almanax almanax = new Almanax(Almanax.FRENCH_LANGUAGE);
-     *                                 </pre></blockquote>
+     *                                                                                 Almanax almanax = new Almanax(Almanax.FRENCH_LANGUAGE);
+     *                                                                                 </pre></blockquote>
      * @throws B4DException
      */
     public Almanax(String language, DofusDatabase database) throws B4DException {

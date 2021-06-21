@@ -19,7 +19,7 @@ public class Chat{
 	/**
 	 * Queue of messages in the chat.
 	 */
-	private ArrayBlockingQueue<Message> messages;
+	private final ArrayBlockingQueue<Message> messages;
 	
 	/**
 	 * Filter of the chat. It is used to ignore useless messages.
